@@ -1,275 +1,1483 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R&R Solutions | AI Automation</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>R&R Global Solutions — AI Workflow Automation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<style>
-:root{
-  --primary:#1f5f99;
-  --primary-dark:#174a77;
-  --bg:#f4f8fc;
-  --text:#0f172a;
-}
+    :root {
+      --navy:    #04091A;
+      --navy-2:  #071229;
+      --navy-3:  #0B1C3F;
+      --blue:    #1A6BFF;
+      --blue-2:  #0050E6;
+      --blue-glow: rgba(26,107,255,0.18);
+      --cyan:    #38CFFF;
+      --white:   #FFFFFF;
+      --off-white: #EEF2F9;
+      --muted:   #8A9BB8;
+      --border:  rgba(138,155,184,0.14);
+      --card-bg: rgba(11,28,63,0.55);
+      --font-display: 'Sora', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-}
+    html { scroll-behavior: smooth; }
 
-body{
-  background:var(--bg);
-  color:var(--text);
-}
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
 
-/* HEADER */
-.header{
-  position:fixed;
-  top:0;
-  width:100%;
-  background:white;
-  padding:14px 24px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 2px 10px rgba(0,0,0,0.05);
-  z-index:1000;
-}
+    /* ─── GRID TEXTURE ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(26,107,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,107,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-.logo{
-  font-weight:700;
-  font-size:18px;
-}
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 72px;
+      background: rgba(4,9,26,0.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
 
-.nav a{
-  margin-left:20px;
-  text-decoration:none;
-  color:#334155;
-  font-size:14px;
-}
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.cta-btn{
-  background:var(--primary);
-  color:white;
-  padding:8px 14px;
-  border-radius:8px;
-  text-decoration:none;
-}
+    .logo-dot {
+      width: 8px; height: 8px;
+      background: var(--blue);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--blue);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
 
-/* HERO */
-.hero{
-  padding:120px 20px 80px;
-  text-align:center;
-  background:linear-gradient(135deg,#1f5f99,#174a77);
-  color:white;
-}
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
 
-.hero h1{
-  font-size:42px;
-  max-width:700px;
-  margin:auto;
-}
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
 
-.hero p{
-  margin-top:16px;
-  max-width:600px;
-  margin-left:auto;
-  margin-right:auto;
-  opacity:0.9;
-}
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
 
-.hero .cta-btn{
-  margin-top:24px;
-  display:inline-block;
-  background:white;
-  color:#1f5f99;
-  font-weight:600;
-}
+    .nav-links a:hover { color: var(--white); }
 
-/* SECTION */
-.section{
-  padding:70px 20px;
-  max-width:1100px;
-  margin:auto;
-  text-align:center;
-}
+    .btn-nav {
+      background: var(--blue);
+      color: var(--white) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 500 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
 
-.section h2{
-  margin-bottom:40px;
-  font-size:28px;
-}
+    .btn-nav:hover {
+      background: var(--blue-2) !important;
+      transform: translateY(-1px) !important;
+    }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-}
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
 
-/* CARD */
-.card{
-  background:white;
-  padding:22px;
-  border-radius:14px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.04);
-  transition:0.3s;
-}
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--muted);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
 
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 12px 35px rgba(0,0,0,0.08);
-}
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 5% 80px;
+      overflow: hidden;
+    }
 
-/* STEPS */
-.steps{
-  display:grid;
-  gap:15px;
-  max-width:600px;
-  margin:auto;
-  text-align:left;
-}
+    .hero-glow {
+      position: absolute;
+      width: 800px; height: 500px;
+      background: radial-gradient(ellipse, rgba(26,107,255,0.22) 0%, transparent 70%);
+      top: 10%; left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
 
-.step{
-  background:white;
-  padding:18px;
-  border-radius:10px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.04);
-}
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(26,107,255,0.1);
+      border: 1px solid rgba(26,107,255,0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--cyan);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fade-up 0.7s ease 0.2s forwards;
+    }
 
-/* CTA SECTION */
-.cta{
-  background:var(--primary);
-  color:white;
-  text-align:center;
-  padding:70px 20px;
-}
+    .hero-pill::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+    }
 
-.cta h2{
-  margin-bottom:20px;
-}
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      max-width: 820px;
+      opacity: 0;
+      animation: fade-up 0.8s ease 0.4s forwards;
+    }
 
-.cta .cta-btn{
-  background:white;
-  color:var(--primary);
-}
+    h1 .accent {
+      background: linear-gradient(120deg, var(--blue) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-/* FOOTER */
-.footer{
-  background:white;
-  padding:30px 20px;
-  text-align:center;
-  border-top:1px solid #e2e8f0;
-}
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-top: 1.5rem;
+      font-weight: 300;
+      opacity: 0;
+      animation: fade-up 0.8s ease 0.6s forwards;
+    }
 
-.socials a{
-  margin:0 10px;
-  text-decoration:none;
-  color:var(--primary);
-  font-weight:500;
-}
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fade-up 0.8s ease 0.8s forwards;
+    }
 
-/* MOBILE */
-@media(max-width:768px){
-  .hero h1{font-size:28px;}
-  .nav{display:none;}
-}
-</style>
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      padding: 0.875rem 2rem;
+      border-radius: 10px;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 0 0 rgba(26,107,255,0);
+    }
 
+    .btn-primary:hover {
+      background: var(--blue-2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(26,107,255,0.35);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--off-white);
+      padding: 0.875rem 2rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.15s, background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(138,155,184,0.4);
+      background: rgba(255,255,255,0.04);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary svg { transition: transform 0.2s; }
+    .btn-secondary:hover svg { transform: translateX(3px); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: fade-up 0.8s ease 1.2s forwards;
+    }
+
+    .hero-scroll span {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(var(--muted), transparent);
+      animation: scroll-bounce 1.5s ease-in-out infinite;
+    }
+
+    @keyframes scroll-bounce {
+      0%,100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ─── STAT BAR ─── */
+    .stat-bar {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 0 5%;
+      margin-top: -2px;
+    }
+
+    .stat-item {
+      flex: 1;
+      max-width: 260px;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .stat-item:first-child { border-radius: 16px 0 0 16px; }
+    .stat-item:last-child  { border-radius: 0 16px 16px 0; }
+    .stat-item + .stat-item { border-left: none; }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      background: linear-gradient(120deg, var(--white) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    /* ─── SECTION BASE ─── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 5%;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 4vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.12;
+      max-width: 640px;
+    }
+
+    h2 .accent {
+      background: linear-gradient(120deg, var(--blue) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 540px;
+      margin-top: 1rem;
+      font-weight: 300;
+    }
+
+    /* ─── WHAT WE DO ─── */
+    #what {
+      background: var(--navy-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .what-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .what-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .feat-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .feat-row:hover {
+      border-color: rgba(26,107,255,0.35);
+      transform: translateX(4px);
+    }
+
+    .feat-icon {
+      width: 40px; height: 40px;
+      min-width: 40px;
+      border-radius: 10px;
+      background: rgba(26,107,255,0.12);
+      border: 1px solid rgba(26,107,255,0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .feat-text h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .feat-text p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .what-visual {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(145deg, var(--navy-3) 0%, rgba(11,28,63,0.6) 100%);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .visual-lines {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .v-line {
+      position: absolute;
+      width: 1px;
+      background: linear-gradient(transparent, rgba(26,107,255,0.2), transparent);
+      height: 100%;
+    }
+
+    .flow-card {
+      position: relative;
+      z-index: 2;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: rgba(4,9,26,0.7);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      transition: border-color 0.3s;
+    }
+
+    .flow-step:hover { border-color: rgba(26,107,255,0.4); }
+
+    .flow-badge {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--blue);
+      background: rgba(26,107,255,0.1);
+      border: 1px solid rgba(26,107,255,0.2);
+      border-radius: 6px;
+      padding: 2px 8px;
+      min-width: 36px;
+      text-align: center;
+    }
+
+    .flow-label {
+      font-size: 0.88rem;
+      color: var(--off-white);
+      flex: 1;
+    }
+
+    .flow-status {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #2ECC71;
+      box-shadow: 0 0 8px #2ECC71;
+    }
+
+    .flow-connector {
+      display: flex;
+      align-items: center;
+      padding-left: 2.5rem;
+      gap: 6px;
+      margin-bottom: 0.75rem;
+    }
+
+    .connector-line {
+      width: 1px;
+      height: 18px;
+      background: linear-gradient(var(--border), rgba(26,107,255,0.3));
+    }
+
+    .connector-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: rgba(26,107,255,0.4);
+    }
+
+    /* ─── USE CASES ─── */
+    #usecases { max-width: 1100px; margin: 0 auto; }
+
+    .usecases-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .case-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+
+    .case-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(26,107,255,0.07) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 16px;
+    }
+
+    .case-card:hover {
+      border-color: rgba(26,107,255,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+    }
+
+    .case-card:hover::before { opacity: 1; }
+
+    .case-num {
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--blue);
+      margin-bottom: 1.5rem;
+    }
+
+    .case-emoji {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .case-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .case-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .case-card.featured {
+      grid-column: span 2;
+      background: linear-gradient(135deg, var(--navy-3) 0%, rgba(26,107,255,0.08) 100%);
+      border-color: rgba(26,107,255,0.2);
+    }
+
+    .case-card.featured h3 { font-size: 1.2rem; }
+
+    /* ─── WHY US ─── */
+    #why {
+      background: var(--navy-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .why-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .why-header { text-align: center; margin-bottom: 4rem; }
+    .why-header h2 { margin: 0 auto; max-width: 600px; }
+    .why-header .section-desc { margin: 1rem auto 0; }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .why-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.25s;
+    }
+
+    .why-card:hover {
+      border-color: rgba(26,107,255,0.3);
+      transform: translateY(-4px);
+    }
+
+    .why-card-num {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: rgba(26,107,255,0.06);
+      line-height: 1;
+    }
+
+    .why-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(26,107,255,0.1);
+      border: 1px solid rgba(26,107,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .why-card h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .why-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    #how { max-width: 900px; margin: 0 auto; }
+
+    .how-header { text-align: center; margin-bottom: 4rem; }
+    .how-header h2 { margin: 0 auto; }
+    .how-header .section-desc { margin: 1rem auto 0; }
+
+    .steps-track {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .steps-track::before {
+      content: '';
+      position: absolute;
+      left: 32px;
+      top: 40px;
+      bottom: 40px;
+      width: 1px;
+      background: linear-gradient(var(--blue), rgba(26,107,255,0.1));
+    }
+
+    .step-row {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      padding: 2rem 2.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      transition: border-color 0.3s;
+      position: relative;
+    }
+
+    .step-row:hover { border-color: rgba(26,107,255,0.35); }
+
+    .step-circle {
+      width: 64px; height: 64px;
+      min-width: 64px;
+      border-radius: 50%;
+      background: var(--navy-3);
+      border: 2px solid var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--blue);
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 20px rgba(26,107,255,0.2);
+    }
+
+    .step-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .step-body p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .step-tag {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      background: rgba(56,207,255,0.07);
+      border: 1px solid rgba(56,207,255,0.18);
+      border-radius: 100px;
+      padding: 3px 10px;
+      text-transform: uppercase;
+    }
+
+    /* ─── RESULTS ─── */
+    #results {
+      background: var(--navy-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .results-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .results-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .result-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .result-bar-wrap {
+      flex: 1;
+      height: 4px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .result-bar {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      transform-origin: left;
+      animation: bar-in 1.2s ease forwards;
+      transform: scaleX(0);
+    }
+
+    @keyframes bar-in {
+      to { transform: scaleX(1); }
+    }
+
+    .result-label { font-size: 0.88rem; color: var(--off-white); min-width: 180px; }
+    .result-pct { font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; color: var(--cyan); min-width: 44px; text-align: right; }
+
+    .results-bignum {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .bignum-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.25s;
+    }
+
+    .bignum-card:hover {
+      border-color: rgba(26,107,255,0.3);
+      transform: translateY(-3px);
+    }
+
+    .bignum-card .num {
+      font-family: var(--font-display);
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      background: linear-gradient(120deg, var(--white), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .bignum-card .lbl {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ─── TRUST ─── */
+    #trust { max-width: 1100px; margin: 0 auto; }
+
+    .trust-header { text-align: center; margin-bottom: 4rem; }
+    .trust-header h2 { margin: 0 auto; }
+    .trust-header .section-desc { margin: 1rem auto 0; text-align: center; }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .trust-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.25rem 2rem;
+      transition: border-color 0.3s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trust-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .trust-card:hover {
+      border-color: rgba(26,107,255,0.3);
+      transform: translateY(-4px);
+    }
+
+    .trust-card:hover::after { opacity: 1; }
+
+    .trust-icon {
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .trust-card h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .trust-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ─── CTA ─── */
+    #cta {
+      background: var(--navy-2);
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-glow {
+      position: absolute;
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(26,107,255,0.2) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .cta-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 0 auto;
+      line-height: 1.1;
+      position: relative;
+    }
+
+    .cta-inner p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 1.5rem auto 2.5rem;
+      max-width: 480px;
+      position: relative;
+    }
+
+    .cta-btn-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-large {
+      padding: 1rem 2.5rem;
+      font-size: 1.05rem;
+      border-radius: 12px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer .logo { font-size: 1rem; }
+
+    .footer-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      .what-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .cases-grid { grid-template-columns: 1fr 1fr; }
+      .case-card.featured { grid-column: span 2; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .results-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .trust-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .stat-bar { flex-direction: column; align-items: center; gap: 1px; }
+      .stat-item { max-width: 100%; width: 100%; border-radius: 0; }
+      .stat-item:first-child { border-radius: 16px 16px 0 0; }
+      .stat-item:last-child  { border-radius: 0 0 16px 16px; }
+      .stat-item + .stat-item { border-left: 1px solid var(--border); border-top: none; }
+      .cases-grid { grid-template-columns: 1fr; }
+      .case-card.featured { grid-column: span 1; }
+      .why-grid { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .results-bignum { grid-template-columns: 1fr 1fr; }
+      section { padding: 70px 5%; }
+      h2 { font-size: 1.8rem; }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="logo">R&R Solutions</div>
-
-  <div class="nav">
-    <a href="#">Services</a>
-    <a href="#">Process</a>
-    <a href="#">Contact</a>
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="logo">
+    <span class="logo-dot"></span>
+    R&R Global Solutions
+  </a>
+  <ul class="nav-links">
+    <li><a href="#what">What We Do</a></li>
+    <li><a href="#usecases">Use Cases</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#cta" class="btn-nav">Book a Demo</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
   </div>
+</nav>
 
-  <a href="YOUR_GOOGLE_FORM_LINK" class="cta-btn">Get Started</a>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <h1>Replace Repetitive Work with AI Automation</h1>
-  <p>
-    We help businesses eliminate manual workflows using secure AI systems — 
-    saving time, reducing cost, and improving efficiency.
-  </p>
-
-  <a href="YOUR_GOOGLE_FORM_LINK" class="cta-btn">Automate My Work</a>
-</section>
-
-<!-- WHAT WE DO -->
-<section class="section">
-  <h2>What We Do</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Task Automation</h3>
-      <p>Remove repetitive work like data entry, reporting, and document handling.</p>
-    </div>
-
-    <div class="card">
-      <h3>Custom Workflows</h3>
-      <p>We design systems tailored to your exact business operations.</p>
-    </div>
-
-    <div class="card">
-      <h3>Secure Processing</h3>
-      <p>Your data is handled with strict privacy and security at every step.</p>
-    </div>
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <span class="hero-pill">Intelligent Workflow Automation</span>
+  <h1>Automate Your <span class="accent">Repetitive Workflows.</span><br/>Scale Without Hiring.</h1>
+  <p class="hero-sub">We help businesses eliminate manual tasks, reduce operational load, and increase output using intelligent automation systems.</p>
+  <div class="hero-cta">
+    <a href="#cta" class="btn-primary btn-large">Book a Demo</a>
+    <a href="#how" class="btn-secondary btn-large">
+      See How It Works
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
   </div>
 </section>
 
-<!-- USE CASES -->
-<section class="section">
-  <h2>Use Cases</h2>
-
-  <div class="grid">
-    <div class="card">Excel → Reports → Presentations</div>
-    <div class="card">Data Cleanup & Structuring</div>
-    <div class="card">Lead Processing</div>
-    <div class="card">Document Automation</div>
+<!-- ═══ STAT BAR ═══ -->
+<div class="stat-bar reveal">
+  <div class="stat-item">
+    <div class="stat-num">10×</div>
+    <div class="stat-label">Faster output delivery</div>
   </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="section">
-  <h2>How It Works</h2>
-
-  <div class="steps">
-    <div class="step">1. You share your workflow</div>
-    <div class="step">2. We build and optimize automation</div>
-    <div class="step">3. You review outputs</div>
-    <div class="step">4. Full execution at scale</div>
+  <div class="stat-item">
+    <div class="stat-num">80%</div>
+    <div class="stat-label">Reduction in manual effort</div>
   </div>
-</section>
-
-<!-- CTA -->
-<section class="cta">
-  <h2>Stop Wasting Time on Manual Work</h2>
-  <p>Let AI handle it while you focus on growing your business.</p>
-
-  <a href="YOUR_GOOGLE_FORM_LINK" class="cta-btn">Get Started</a>
-</section>
-
-<!-- FOOTER -->
-<div class="footer">
-  <p>© 2026 R&R Solutions</p>
-
-  <div class="socials">
-    <a href="#">LinkedIn</a>
-    <a href="#">Twitter</a>
-    <a href="#">Email</a>
+  <div class="stat-item">
+    <div class="stat-num">99%</div>
+    <div class="stat-label">Output accuracy rate</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Disruption to your team</div>
   </div>
 </div>
 
+<!-- ═══ WHAT WE DO ═══ -->
+<section id="what">
+  <div class="what-grid">
+    <div>
+      <span class="section-tag reveal">What We Do</span>
+      <h2 class="reveal">Your work, done <span class="accent">faster.</span></h2>
+      <p class="section-desc reveal">We take the tasks your team repeats every day and build systems that handle them automatically — so your people can focus on work that actually moves the needle.</p>
+      <div class="what-features">
+        <div class="feat-row reveal">
+          <div class="feat-icon">⚡</div>
+          <div class="feat-text">
+            <h4>Automate repetitive business tasks</h4>
+            <p>Anything your team does on repeat — we handle it, reliably and at scale.</p>
+          </div>
+        </div>
+        <div class="feat-row reveal">
+          <div class="feat-icon">🔗</div>
+          <div class="feat-text">
+            <h4>Seamless workflow integration</h4>
+            <p>Works directly with your existing tools — Excel, reports, documents, and more.</p>
+          </div>
+        </div>
+        <div class="feat-row reveal">
+          <div class="feat-icon">🎯</div>
+          <div class="feat-text">
+            <h4>Eliminate errors, improve consistency</h4>
+            <p>Automated systems don't have off-days. Every output is accurate and on spec.</p>
+          </div>
+        </div>
+        <div class="feat-row reveal">
+          <div class="feat-icon">📈</div>
+          <div class="feat-text">
+            <h4>More output, same team size</h4>
+            <p>Scale your throughput without adding headcount or burning out your staff.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="what-visual reveal">
+      <div class="visual-lines">
+        <div class="v-line" style="left:20%"></div>
+        <div class="v-line" style="left:50%"></div>
+        <div class="v-line" style="left:80%"></div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-step">
+          <span class="flow-badge">IN</span>
+          <span class="flow-label">Raw data & spreadsheets received</span>
+          <span class="flow-status"></span>
+        </div>
+        <div class="flow-connector"><div class="connector-line"></div><div class="connector-dot"></div></div>
+        <div class="flow-step">
+          <span class="flow-badge">→</span>
+          <span class="flow-label">Automation processes & formats</span>
+          <span class="flow-status"></span>
+        </div>
+        <div class="flow-connector"><div class="connector-line"></div><div class="connector-dot"></div></div>
+        <div class="flow-step">
+          <span class="flow-badge">→</span>
+          <span class="flow-label">Structured report generated</span>
+          <span class="flow-status"></span>
+        </div>
+        <div class="flow-connector"><div class="connector-line"></div><div class="connector-dot"></div></div>
+        <div class="flow-step">
+          <span class="flow-badge">OUT</span>
+          <span class="flow-label">Final output delivered</span>
+          <span class="flow-status"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ USE CASES ═══ -->
+<section id="usecases" style="padding-left:5%;padding-right:5%;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="usecases-header">
+      <div>
+        <span class="section-tag reveal">Use Cases</span>
+        <h2 class="reveal">Built for real <span class="accent">business tasks.</span></h2>
+      </div>
+      <p class="section-desc reveal" style="margin-top:0;max-width:340px;">Common workflows we automate across teams, departments, and industries.</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card featured reveal">
+        <div class="case-num">01 — MOST POPULAR</div>
+        <span class="case-emoji">📊</span>
+        <h3>Report Generation from Raw Data</h3>
+        <p>Send us raw numbers or exports. We deliver polished, formatted reports — charts, summaries, and all — ready to share with stakeholders. No manual formatting required.</p>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-num">02</div>
+        <span class="case-emoji">📑</span>
+        <h3>Spreadsheet to Presentation</h3>
+        <p>Convert data-heavy spreadsheets into clean, structured presentations automatically. Every slide, formatted to spec.</p>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-num">03</div>
+        <span class="case-emoji">🗂️</span>
+        <h3>Data Processing & Formatting</h3>
+        <p>Clean, standardize, and restructure large datasets into the format your team needs — consistently and at speed.</p>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-num">04</div>
+        <span class="case-emoji">📄</span>
+        <h3>Document Handling & Structuring</h3>
+        <p>Organize, reformat, and compile documents at scale. From intake to output — no manual handling required.</p>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-num">05</div>
+        <span class="case-emoji">🔄</span>
+        <h3>Repetitive Operational Workflows</h3>
+        <p>Any task your team does on a schedule or in bulk can be automated. If it's repeatable, we can systematize it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY CHOOSE US ═══ -->
+<section id="why">
+  <div class="why-inner">
+    <div class="why-header">
+      <span class="section-tag reveal">Why Choose Us</span>
+      <h2 class="reveal">Automation that actually <span class="accent">fits your business.</span></h2>
+      <p class="section-desc reveal">Not generic. Not disruptive. Built exactly for how you work.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-card-num">01</div>
+        <div class="why-icon">🛠️</div>
+        <h3>Custom-Built for You</h3>
+        <p>Every automation is designed around your specific workflow — not a one-size-fits-all template.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-num">02</div>
+        <div class="why-icon">🔒</div>
+        <h3>High Data Privacy Standards</h3>
+        <p>Your data stays controlled. We build with privacy as a foundation, not an afterthought.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-num">03</div>
+        <div class="why-icon">🤝</div>
+        <h3>Zero Workflow Disruption</h3>
+        <p>We work around your existing processes. No overhauls, no learning curves for your team.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-num">04</div>
+        <div class="why-icon">⚡</div>
+        <h3>Faster Turnaround Times</h3>
+        <p>Outputs that used to take hours get delivered in minutes — consistently, every time.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-num">05</div>
+        <div class="why-icon">📐</div>
+        <h3>Scalable by Design</h3>
+        <p>As your volume grows, the system scales with you. No extra overhead, no extra cost per task.</p>
+      </div>
+      <div class="why-card reveal" style="background: linear-gradient(135deg, rgba(26,107,255,0.1) 0%, var(--card-bg) 100%); border-color: rgba(26,107,255,0.25);">
+        <div class="why-card-num">06</div>
+        <div class="why-icon">🎯</div>
+        <h3>Outcome-Focused Delivery</h3>
+        <p>We measure success by your results — hours saved, costs reduced, accuracy improved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section id="how" style="padding-left:5%;padding-right:5%;">
+  <div class="how-header">
+    <span class="section-tag reveal">How It Works</span>
+    <h2 class="reveal">Simple process. <span class="accent">Powerful results.</span></h2>
+    <p class="section-desc reveal">Three steps from your current workflow to a fully automated one.</p>
+  </div>
+  <div style="max-width:740px;margin:0 auto;">
+    <div class="steps-track">
+      <div class="step-row reveal">
+        <div class="step-circle">1</div>
+        <div class="step-body">
+          <h3>You Share Your Workflow</h3>
+          <p>Walk us through what your team currently does manually. Share your files, formats, and expected outputs. No technical knowledge needed — just show us the task.</p>
+          <span class="step-tag">Discovery</span>
+        </div>
+      </div>
+      <div class="step-row reveal">
+        <div class="step-circle">2</div>
+        <div class="step-body">
+          <h3>We Build & Optimize the Automation</h3>
+          <p>We design a tailored system that handles your workflow end-to-end. We test, refine, and validate until outputs match your exact standards.</p>
+          <span class="step-tag">Build & Test</span>
+        </div>
+      </div>
+      <div class="step-row reveal">
+        <div class="step-circle">3</div>
+        <div class="step-body">
+          <h3>You Receive Outputs Faster</h3>
+          <p>From day one, your team submits inputs and receives finished outputs — no manual work in between. Faster, more consistent, and completely reliable.</p>
+          <span class="step-tag">Go Live</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RESULTS ═══ -->
+<section id="results">
+  <div class="results-inner">
+    <div>
+      <span class="section-tag reveal">Results & Benefits</span>
+      <h2 class="reveal">Real impact on your <span class="accent">bottom line.</span></h2>
+      <p class="section-desc reveal">Businesses that automate their workflows see measurable improvements — immediately and consistently.</p>
+      <div class="results-items">
+        <div class="result-row reveal">
+          <span class="result-label">Manual effort eliminated</span>
+          <div class="result-bar-wrap"><div class="result-bar" style="width:80%;animation-delay:0.1s"></div></div>
+          <span class="result-pct">80%</span>
+        </div>
+        <div class="result-row reveal">
+          <span class="result-label">Output turnaround speed</span>
+          <div class="result-bar-wrap"><div class="result-bar" style="width:90%;animation-delay:0.2s"></div></div>
+          <span class="result-pct">10×</span>
+        </div>
+        <div class="result-row reveal">
+          <span class="result-label">Accuracy improvement</span>
+          <div class="result-bar-wrap"><div class="result-bar" style="width:95%;animation-delay:0.3s"></div></div>
+          <span class="result-pct">99%</span>
+        </div>
+        <div class="result-row reveal">
+          <span class="result-label">Operational cost reduction</span>
+          <div class="result-bar-wrap"><div class="result-bar" style="width:60%;animation-delay:0.4s"></div></div>
+          <span class="result-pct">60%</span>
+        </div>
+      </div>
+    </div>
+    <div class="results-bignum">
+      <div class="bignum-card reveal">
+        <div class="num">40+</div>
+        <div class="lbl">Hours saved per week per team</div>
+      </div>
+      <div class="bignum-card reveal">
+        <div class="num">3×</div>
+        <div class="lbl">More capacity, same headcount</div>
+      </div>
+      <div class="bignum-card reveal">
+        <div class="num">0</div>
+        <div class="lbl">Disruption to existing workflows</div>
+      </div>
+      <div class="bignum-card reveal">
+        <div class="num">Days</div>
+        <div class="lbl">Time to first live automation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST ═══ -->
+<section id="trust" style="padding-left:5%;padding-right:5%;">
+  <div class="trust-header">
+    <span class="section-tag reveal">Trust & Security</span>
+    <h2 class="reveal">Your data stays <span class="accent">yours.</span></h2>
+    <p class="section-desc reveal">We take data responsibility seriously. Every system we build is designed with privacy at its core.</p>
+  </div>
+  <div class="trust-grid" style="max-width:1100px;margin:0 auto;">
+    <div class="trust-card reveal">
+      <span class="trust-icon">🔐</span>
+      <h3>Secure & Controlled</h3>
+      <p>Your business data remains under your control at all times. We don't store, share, or expose your information beyond what's needed to complete the task.</p>
+    </div>
+    <div class="trust-card reveal">
+      <span class="trust-icon">🛡️</span>
+      <h3>Privacy-First by Design</h3>
+      <p>Every automation system we build is architected with privacy as a foundational requirement — not added on at the end.</p>
+    </div>
+    <div class="trust-card reveal">
+      <span class="trust-icon">🔍</span>
+      <h3>Transparent Process</h3>
+      <p>You always know what's happening with your data. No unnecessary exposure, no black boxes. Clear inputs, clear outputs, full accountability.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="cta-glow"></div>
+    <span class="section-tag reveal">Get Started</span>
+    <h2 class="reveal">Ready to automate<br/><span class="accent">your workflow?</span></h2>
+    <p class="reveal">Book a free discovery call. We'll walk through your current workflow and show you exactly what we can automate — no commitment required.</p>
+    <div class="cta-btn-wrap reveal">
+      <a href="mailto:hello@R&R Global Solutions.com" class="btn-primary btn-large">Get Started</a>
+      <a href="#how" class="btn-secondary btn-large">
+        Learn More
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <a href="#" class="logo">
+    <span class="logo-dot"></span>
+    R&R Global Solutions
+  </a>
+  <p class="footer-note">© 2025 R&R Global Solutions. All rights reserved.</p>
+  <p class="footer-note" style="color:rgba(138,155,184,0.5);">Automating workflows. Freeing teams.</p>
+</footer>
+
+<script>
+  // ─── SCROLL REVEAL ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i * 0.06) + 's';
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ─── NAV SCROLL EFFECT ───
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 60
+      ? 'rgba(4,9,26,0.96)'
+      : 'rgba(4,9,26,0.82)';
+  });
+
+  // ─── MOBILE MENU ───
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === 'flex') {
+      links.style.display = 'none';
+    } else {
+      Object.assign(links.style, {
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'fixed',
+        top: '72px', left: '0', right: '0',
+        background: 'rgba(4,9,26,0.97)',
+        padding: '1.5rem 5%',
+        gap: '1.5rem',
+        borderBottom: '1px solid rgba(138,155,184,0.14)',
+        backdropFilter: 'blur(18px)',
+        zIndex: '99'
+      });
+    }
+  }
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      if (window.innerWidth < 640) links.style.display = 'none';
+    });
+  });
+</script>
 </body>
 </html>
