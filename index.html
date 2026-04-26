@@ -1062,6 +1062,51 @@
     }
   </style>
 </head>
+  <!-- ✅ FULLSCREEN FORM VIEW -->
+<div id="formPage" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#04091A;
+  z-index:9999;
+">
+
+  <!-- Close button -->
+  <button onclick="closeForm()" style="
+    position:absolute;
+    top:20px;
+    right:24px;
+    z-index:10;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    color:#fff;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+  ">
+    ✕ Close
+  </button>
+
+  <!-- Tally iframe -->
+  <iframe 
+    data-tally-src="https://tally.so/r/ja00qJ?transparentBackground=1"
+    style="width:100%; height:100%; border:0;">
+  </iframe>
+</div>
+
+<script>
+var d=document,w="https://tally.so/widgets/embed.js",v=function(){
+  "undefined"!=typeof Tally?Tally.loadEmbeds():
+  d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){
+    e.src=e.dataset.tallySrc
+  }))
+};
+if("undefined"!=typeof Tally)v();
+else if(d.querySelector('script[src="'+w+'"]')==null){
+  var s=d.createElement("script");
+  s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);
+}
+</script>
 <body>
 
 <!-- ═══ NAV ═══ -->
@@ -1074,7 +1119,7 @@
     <li><a href="#what">What We Do</a></li>
     <li><a href="#usecases">Use Cases</a></li>
     <li><a href="#how">How It Works</a></li>
-    <li><a href="#cta" class="btn-nav">Book a Demo</a></li>
+    <li><a href="javascript:void(0)" onclick="openForm()" class="btn-nav">Book a Demo</a></li>
   </ul>
   <div class="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -1088,7 +1133,7 @@
   <h1>Automate Your <span class="accent">Repetitive Workflows.</span><br/>Scale Without Hiring.</h1>
   <p class="hero-sub">We help businesses eliminate manual tasks, reduce operational load, and increase output using intelligent automation systems.</p>
   <div class="hero-cta">
-    <a href="#cta" class="btn-primary btn-large">Book a Demo</a>
+    <a href="javascript:void(0)" onclick="openForm()" class="btn-primary btn-large">Book a Demo</a>
     <a href="#how" class="btn-secondary btn-large">
       See How It Works
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1478,6 +1523,17 @@
       if (window.innerWidth < 640) links.style.display = 'none';
     });
   });
+  <script>
+function openForm() {
+  document.getElementById("formPage").style.display = "block";
+  document.body.style.overflow = "hidden";
+}
+
+function closeForm() {
+  document.getElementById("formPage").style.display = "none";
+  document.body.style.overflow = "auto";
+}
+</script>
 </script>
 </body>
 </html>
